@@ -18,9 +18,10 @@ public class BoardService {
 
 
     private final BoardRepository boardRepository;
-    private final MemberService memberService;
 
-
+    public Board boardSave(Board board){
+        return boardRepository.save(board);
+    }
 
     public List<Board> findAllbd(Board board){
         List<Board> boards= boardRepository.findAll();
@@ -40,7 +41,6 @@ public class BoardService {
     @Transactional
     public void update(Long id,Board board){
         Board findboard=findById(id);
-        findboard.setName(board.getName());
         findboard.setCont(board.getCont());
         findboard.setTitle(board.getTitle());
         findboard.setSts(board.getSts());

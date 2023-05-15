@@ -26,9 +26,8 @@ public class Board {
     @Column(length = 30)
     private String title;
 
-    @NotEmpty(message = "이름을 입력하세요")
-    @Column(length = 30)
-    private String name;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
     private Member member;
@@ -52,7 +51,7 @@ public class Board {
         return "Board{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", name='" + name + '\'' +
+                //", name='" + name + '\'' +
                 ", member=" + member +
                 ", price=" + price +
                 ", cont='" + cont + '\'' +

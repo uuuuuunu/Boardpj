@@ -22,7 +22,7 @@ public class MemberController {
     BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
     @GetMapping
     public String home(){
-        return "basic/login/Home";
+        return "basic/login/home";
     }
 
     @GetMapping("/test")
@@ -31,31 +31,28 @@ public class MemberController {
     }
     @GetMapping("/join")
     public String JoinForm(@ModelAttribute("member")Member member){
-        return "basic/login/AddMember";
+        return "basic/login/addmember";
     }
 
     @PostMapping("/join")
     public String Join(@ModelAttribute("member") @Valid Member member, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "basic/login/AddMember";
+            return "basic/login/addmember";
         }
         String rawPassword=member.getPassword();
         String encPassword=passwordEncoder.encode(rawPassword);
         member.setPassword(encPassword);
-        memberReposirory.save(member);
+        memberService.memberSave(member);
         return "redirect:/yw";
     }
 
     @GetMapping("/login")
     public String loginForm(){
-        return "basic/login/LoginForm";
+        return "basic/login/loginform";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(){
         return "redirect:/yw/login";
     }
-
-
-
 }

@@ -42,8 +42,7 @@ public class MypageController {
     }
 
     @GetMapping("/boards/myhome")
-    public String mypagehome(Model model,
-                             Principal principal){
+    public String mypagehome(Model model,Principal principal){
         Member byId = memberService.findById(principal.getName());
         model.addAttribute("mypage",byId);
         return "basic/mypage/myhome";
@@ -91,8 +90,7 @@ public class MypageController {
     }
 
     @PostMapping ("/boards/{id}/edit")
-    public String editbd(@PathVariable Long id, @ModelAttribute("board") @Valid Board board,BindingResult bindingResult,
-                         Model model){
+    public String editbd(@PathVariable Long id, @ModelAttribute("board") @Valid Board board,BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "basic/mypage/editform";
         }

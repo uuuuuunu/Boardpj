@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ptp.myboard.domain.Board;
 import ptp.myboard.domain.Member;
-import ptp.myboard.repository.BoardRepository;
 import ptp.myboard.service.BoardService;
 import ptp.myboard.service.MemberService;
 import javax.validation.Valid;
@@ -20,7 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class BoardController {
-    private final BoardRepository boardRepository;
     private final BoardService boardService;
     private final MemberService memberService;
 
@@ -44,24 +42,23 @@ public class BoardController {
         Member byId = memberService.findById(principal.getName());
         model.addAttribute("boards", boards);
         model.addAttribute("nickname",byId.getNickname());
-        return "basic/boards";
+        return "basic/board/boards";
     }
     @GetMapping("/boards/new")
     public String newform(@ModelAttribute("board")Board board,Principal principal){
-        System.out.println(principal.getName());
-        return "basic/addboard";
+        return "basic/board/addboard";
     }
 
     @PostMapping("/boards/new")
     public String newboard(@ModelAttribute("board")@Valid Board board , BindingResult bindingResult,
                            Principal principal){
         if(bindingResult.hasErrors()){
-            return "basic/addboard";
+            return "basic/board/addboard";
         }
         String username=principal.getName();
         Member member=memberService.findById(username);
         board.setMember(member);
-        boardRepository.save(board);
+        boardService.boardSave(board);
         return "redirect:/yw/boards";
     }
 
@@ -72,7 +69,7 @@ public class BoardController {
         String nickname=principal.getName();
         model.addAttribute("nickname",nickname);
         model.addAttribute("board",findbd);
-        return "basic/board";
+        return "basic/board/board";
     }
 }
 

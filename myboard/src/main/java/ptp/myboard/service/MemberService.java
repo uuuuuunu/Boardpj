@@ -2,11 +2,8 @@ package ptp.myboard.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import ptp.myboard.domain.Member;
 import ptp.myboard.repository.MemberReposirory;
-
-import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -14,7 +11,6 @@ import java.util.List;
 public class MemberService {
     private final MemberReposirory memberReposirory;
     public Member memberSave(Member member) {
-
         return memberReposirory.save(member);
     }
 

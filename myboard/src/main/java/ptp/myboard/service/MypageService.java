@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class MypageService {
 
 
-    private final BoardRepository boardRepository;
+
     private final MemberService memberService;
     private final BoardService boardService;
     private final Board board;

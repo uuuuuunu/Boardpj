@@ -1,2 +1,0 @@
-package ptp.myboard;
-

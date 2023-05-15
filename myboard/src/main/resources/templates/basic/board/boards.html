@@ -77,9 +77,9 @@
       </thead>
       <tbody class="bd2">
       <tr th:each="board:${boards}">
-        <td><a href="../../static/board.html" th:href="@{/yw/boards/{id}(id=${board.id})}" th:text="${board.id}"></a></td>
+        <td><a href="../../../static/board.html" th:href="@{/yw/boards/{id}(id=${board.id})}" th:text="${board.id}"></a></td>
         <td th:text="${board.sts}"></td>
-        <td><a href="../../static/board.html" th:href="@{/yw/boards/{id}(id=${board.id})}" th:text="${board.title}"></a></td>
+        <td><a href="../../../static/board.html" th:href="@{/yw/boards/{id}(id=${board.id})}" th:text="${board.title}"></a></td>
         <td th:text="${board.price}"></td>
         <td th:text="${nick}"></td>
         <td th:text="${board.creatAt}"></td>
