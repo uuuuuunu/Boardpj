@@ -1,0 +1,64 @@
+package ptp.myboard.security;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+@Configuration
+@EnableWebSecurity
+@Slf4j
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+    private PrincipalDetailService principalDetailService;
+
+    @Autowired
+    public SecurityConfig(PrincipalDetailService principalDetailService) {
+        this.principalDetailService = principalDetailService;
+    }
+
+    @Bean
+    public BCryptPasswordEncoder encodePwd() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+        auth.userDetailsService(principalDetailService).passwordEncoder(encodePwd());
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+            .authorizeRequests()
+                .antMatchers("/yw","/yw/join","/yw/login").permitAll()
+                .antMatchers("/css/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .usernameParameter("username")
+                .loginPage("/yw/login").loginProcessingUrl("/yw/login").defaultSuccessUrl("/yw/boards")
+                .and()
+                .logout()
+                .logoutUrl("/yw/logout")
+                .permitAll();
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+}
