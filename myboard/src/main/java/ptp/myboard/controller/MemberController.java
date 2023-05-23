@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ptp.myboard.domain.Member;
@@ -35,14 +36,16 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    public String Join(@ModelAttribute("member") @Valid Member member, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
+    public String Join(@Valid @ModelAttribute("member") Member member, BindingResult memberBindingResult, Model model){
+        if(memberBindingResult.hasErrors()){
             return "basic/login/addmember";
         }
         String rawPassword=member.getPassword();
+        member.setOrgpassword(rawPassword);
         String encPassword=passwordEncoder.encode(rawPassword);
         member.setPassword(encPassword);
         memberService.memberSave(member);
+        log.info("username={}",member.getUsername());
         return "redirect:/yw";
     }
 
