@@ -11,6 +11,9 @@
     .col{
       margin-top: 20px;
     }
+    .image{
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -82,14 +85,19 @@
     <input type="text" id="cont" name="cont" class="form-control"
            th:value="${board.cont}" readonly>
   </div>
-
+  <form>
+    <label>상품사진</label>
+    <div class="image">
+      <img th:src="@{${image}}">
+    </div>
+  </form>
     <div class="col">
       <button class="w-100 btn btn-secondary btn-lg"
               onclick="location.href='items.html'"
               th:onclick="|location.href='/yw/boards'|"
               type="button">목록으로</button>
     </div>
-  </div>
+
 </div> <!-- /container -->
 </body>
 </html>

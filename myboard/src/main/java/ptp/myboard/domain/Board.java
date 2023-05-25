@@ -19,7 +19,7 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "board_id")
+    @Column(name = "board_id")
     private Long id;
     @NotEmpty(message = "제목을 입력하세요")
     @Column(length = 30)

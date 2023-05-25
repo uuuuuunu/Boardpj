@@ -8,6 +8,8 @@ import ptp.myboard.repository.MemberReposirory;
 import ptp.myboard.service.BoardService;
 import ptp.myboard.service.MemberService;
 
+import java.util.UUID;
+
 public class SaveTest {
     BoardService boardService;
     BoardRepository boardRepository;
@@ -43,6 +45,12 @@ public class SaveTest {
         member.setPassword("1");
         //board.setMember(member);
         memberService.memberSave(member);
+
+    }
+    @Test
+    public void uuidtest(){
+        String file="_hi_hello_ii".replaceAll("_","");
+        System.out.println(file);
 
     }
 }

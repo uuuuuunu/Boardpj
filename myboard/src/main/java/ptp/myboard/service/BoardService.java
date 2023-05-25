@@ -47,7 +47,7 @@ public class BoardService {
         findboard.setPrice(board.getPrice());
 
     }
-    public Board Hit(Long Id, Board board){
+    public Board Hit(Long Id){
         Board byId = findById(Id);
         byId.hit++;
         return boardRepository.save(byId);

@@ -19,7 +19,6 @@ import javax.validation.Valid;
 @Slf4j
 public class MemberController {
     private final MemberService memberService;
-    private final MemberReposirory memberReposirory;
     BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
     @GetMapping
     public String home(){
