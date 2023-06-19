@@ -6,9 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ptp.myboard.domain.Image;
-import ptp.myboard.domain.Member;
 import ptp.myboard.repository.ImageRepository;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -18,35 +16,29 @@ import java.util.UUID;
 @Slf4j
 public class ImageService {
     private final ImageRepository imageRepository;
-
-    public Image imgsave(Image image){
+    //String filepath="C:\\toy\\myboard\\src\\main\\resources\\static\\image\\";
+    public Image pathsave(Image image){
         return imageRepository.save(image);
     }
+
     public Image findByimgid(Long id){
         return imageRepository.getReferenceById(id);
     }
-    public String findByorgname(Long boardid, Image image){
-        if(image.getBoard().getId()==boardid){
-            return image.getOrgImageName();
-        }else{
-            return null;
-        }
+
+    public void uploadImage(@NotNull MultipartFile imgfile, @NotNull Image image) throws IOException {
+        String orgname=imgfile.getOriginalFilename();
+        String property=System.getProperty("user.dir")+"\\myboard\\src\\main\\resources\\static\\image\\";
+        String imgName=uuidname(orgname);
+        File saveFile=new File(property,imgName);
+        imgfile.transferTo(saveFile);
+        image.setOrgImageName(imgName);
+        image.setImagePath("/image/"+imgName);
+        pathsave(image);
+
     }
-    public void imagePathSave(@NotNull MultipartFile file, Image image) throws IOException {
-        String filepath="C:\\toy\\myboard\\src\\main\\resources\\static\\image\\";
+    private String uuidname(String orgname){
         String uuid = UUID.randomUUID().toString();
-        if(!file.isEmpty()){
-            String orgname=file.getOriginalFilename();
-            String savename=uuid+orgname;
-            log.info("orgname={}",orgname);
-            image.setImagePath(filepath+orgname);
-            image.setOrgImageName(orgname);
-            image.setSaveName(savename);
-            imgsave(image);
-            File save=new File(filepath+savename);
-            file.transferTo(save);
-        }
-
+        uuid=uuid.replace("-","_");
+        return uuid+orgname;
     }
-
 }

@@ -49,7 +49,7 @@
   <div class="py-5 text-center">
     <h2>게시글 작성</h2>
   </div>
-  <form th:action method="post" enctype="multipart/form-data" th:object="${board}">
+  <form th:action="@{/yw/boards/new}" method="post" enctype="multipart/form-data" th:object="${board}">
     <div>
       <label for="title">제목</label>
       <input type="text" id="title" name="title" th:field="*{title}" class="form-control"
@@ -87,8 +87,8 @@
       </div>
     </div>
     <div>
-      <label for="image">이미지</label>
-      <input type="file" id="image" name="file" class="form-control-file">
+      <label for="imgfile" class="">이미지</label>
+      <input type="file" id="imgfile" name="imgfile" class="form-control-file">
     </div>
     <hr class="my-4">
     <div class="row">

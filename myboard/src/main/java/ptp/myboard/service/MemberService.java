@@ -3,9 +3,13 @@ package ptp.myboard.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ptp.myboard.domain.Board;
 import ptp.myboard.domain.Member;
 import ptp.myboard.repository.MemberReposirory;
+
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,5 +49,15 @@ public class MemberService {
                 .filter(e -> e.getPassword().equals(password))
                 .orElse(null);
     }
+   /** public String findBynickname(String getname,Board board){
+        if(getname.equals(board.getMember().getUsername())){
+            Member member = findById(getname);
+            log.info("getname={}",getname);
+            return member.getNickname();
+        }else{
+            return "null";
+        }
+
+    }**/
 
 }

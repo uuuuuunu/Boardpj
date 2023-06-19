@@ -103,7 +103,5 @@ public class MypageController {
         model.addAttribute("board",board);
         return "redirect:/yw/boards";
     }
-
-
 }
 

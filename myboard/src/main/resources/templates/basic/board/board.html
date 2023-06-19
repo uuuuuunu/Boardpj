@@ -63,7 +63,7 @@
   <div>
     <label for="nick">작성자</label>
     <input type="text" id="nick" name="nick" class="form-control"
-           th:value="${nick}" readonly>
+           th:value="${board.getMember().getNickname()}" readonly>
   </div>
   <div>
     <label for="price">가격</label>
@@ -88,7 +88,7 @@
   <form>
     <label>상품사진</label>
     <div class="image">
-      <img th:src="@{${image}}">
+      <<img th:src="@{${image.getImagePath()}}">>
     </div>
   </form>
     <div class="col">

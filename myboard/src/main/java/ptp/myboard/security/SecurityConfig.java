@@ -43,19 +43,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         };
         http.csrf().disable()
             .authorizeRequests()
-                .antMatchers("/yw","/yw/join","/yw/login").permitAll()
+                .antMatchers("/yw","/yw/join","/yw/login","/test").permitAll()
                 .antMatchers("/static/css/**").permitAll()
                 .antMatchers(staticResources).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-
                 .usernameParameter("username")
                 .loginPage("/yw/login").loginProcessingUrl("/yw/login").defaultSuccessUrl("/yw/boards")
                 .and()
                 .logout()
                 .logoutUrl("/yw/logout")
                 .permitAll();
+        http.headers().contentTypeOptions().disable();
     }
 
 

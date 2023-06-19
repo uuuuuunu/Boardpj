@@ -48,9 +48,11 @@ public class SaveTest {
 
     }
     @Test
-    public void uuidtest(){
-        String file="_hi_hello_ii".replaceAll("_","");
-        System.out.println(file);
-
+    public void uuidtest() {
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        System.out.println(uuid);
+    }
+    @Test
+    public void savetest2(){
     }
 }
