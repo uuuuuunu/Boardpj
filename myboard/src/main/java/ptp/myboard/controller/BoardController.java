@@ -45,17 +45,16 @@ public class BoardController {
     @GetMapping("/boards")
     public String boardList(Board board, Model model,Principal principal) {
         List<Board> boards = boardService.findAllbd(board);
-        log.info("boardid={}",principal.getName());
-        for (Board board1 : boards) {
-            String nickname = board1.getMember().getNickname();
-            model.addAttribute("nickname",nickname);
-        }
         model.addAttribute("boards", boards);
         return "basic/board/boards";
     }
     @GetMapping("/boards/new")
     public String newform(@ModelAttribute("board")Board board,
-                          @ModelAttribute("image") Image image){
+                          @ModelAttribute("image") Image image,
+                          Model model,Principal principal){
+        String username=principal.getName();
+        Member member=memberService.findById(username);
+        model.addAttribute("nick",member.getNickname());
         return "basic/board/addboard";
     }
 

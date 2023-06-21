@@ -25,10 +25,6 @@ public class MemberController {
         return "basic/login/home";
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return "basic/index";
-    }
     @GetMapping("/join")
     public String JoinForm(@ModelAttribute("member")Member member){
         return "basic/login/addmember";

@@ -43,7 +43,6 @@ public class MypageService {
 
         public List<Board> mypagepost(String username) {
             List<Board> allbd = boardService.findAllbd(board);
-            log.info("all={}", allbd);
             Member byId = memberService.findById(username);
             List<Board> mypagepost = new ArrayList<>();
             List<Board> tolist=

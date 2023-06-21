@@ -49,15 +49,5 @@ public class MemberService {
                 .filter(e -> e.getPassword().equals(password))
                 .orElse(null);
     }
-   /** public String findBynickname(String getname,Board board){
-        if(getname.equals(board.getMember().getUsername())){
-            Member member = findById(getname);
-            log.info("getname={}",getname);
-            return member.getNickname();
-        }else{
-            return "null";
-        }
-
-    }**/
 
 }
