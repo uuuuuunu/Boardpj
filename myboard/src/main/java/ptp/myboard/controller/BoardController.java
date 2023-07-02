@@ -1,10 +1,12 @@
 package ptp.myboard.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +23,7 @@ import ptp.myboard.domain.Image;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -32,7 +35,9 @@ public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
     private final ImageService imageService;
-    //private final Image image;
+
+
+
 
     @ModelAttribute
     public void informnickname(Principal principal, Model model){
@@ -43,11 +48,12 @@ public class BoardController {
     }
 
     @GetMapping("/boards")
-    public String boardList(Board board, Model model,Principal principal) {
+    public String boardList(Board board, Model model) {
         List<Board> boards = boardService.findAllbd(board);
         model.addAttribute("boards", boards);
         return "basic/board/boards";
     }
+
     @GetMapping("/boards/new")
     public String newform(@ModelAttribute("board")Board board,
                           @ModelAttribute("image") Image image,
@@ -68,7 +74,9 @@ public class BoardController {
         }
         String username=principal.getName();
         Member member=memberService.findById(username);
+        List<Image> imgs = imageService.findAllImg(image);
         board.setMember(member);
+        board.setImage(imgs);
         image.setBoard(board);
         boardService.boardSave(board);
         imageService.uploadImage(imgfile,image);
@@ -79,16 +87,11 @@ public class BoardController {
     @GetMapping("/boards/{id}")
     public String board(@PathVariable Long id,
                         @NotNull Model model, @NotNull Principal principal) throws IOException {
-        //게시글 출력
         Board findbd=boardService.findById(id);
         boardService.Hit(id);
         String nickname=principal.getName();
         model.addAttribute("nickname",nickname);
         model.addAttribute("board",findbd);
-        //이미지 출력
-        Image image = imageService.findByimgid(id);
-        model.addAttribute("image",image);
-        log.info("image={}",image.getImagePath());
         return "basic/board/board";
     }
 }

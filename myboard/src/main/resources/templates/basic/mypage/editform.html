@@ -44,7 +44,7 @@
 <header class="bg-dark py-5">
   <div class="container px-4 px-lg-5 my-5">
     <div class="text-center text-white">
-      <h1 class="display-4 fw-bolder">CBNU Market</h1>
+      <h1 class="display-4 fw-bolder" th:onclick="|location.href='/yw/boards'|">CBNU Market</h1>
       <p class="lead fw-normal text-white-50 mb-0"></p>
     </div>
   </div>
@@ -54,7 +54,7 @@
   <div class="py-5 text-center">
     <h2>상품 수정 폼</h2>
   </div>
-  <form action="item.html" th:action th:object="${board}" method="post">
+  <form th:action th:object="${board}" enctype="multipart/form-data" method="post">
     <div>
       <label for="id">ID</label>
       <input type="text" id="id" name="id" class="form-control"
@@ -96,13 +96,21 @@
       <div th:each="msg:${#fields.errors('cont')}">
         <p th:text="${msg}"></p>
       </div>
+        <label>상품사진</label>
+        <div class="image">
+          <tr th:each="image:${board.getImage()}">
+            <img th:src="@{${image.getImagePath()}}" width="1200px">
+          </tr>
+        </div>
     </div>
-
+    <div>
+      <label for="imgfile" class="">상품사진변경</label>
+      <input type="file" id="imgfile" name="imgfile" class="form-control-file" multiple>
+    </div>
     <hr class="my-4">
     <div class="row">
       <div class="col">
-        <button class="w-100 btn btn-primary btn-lg" type="submit">저장
-        </button>
+        <button class="w-100 btn btn-primary btn-lg" type="submit">저장</button>
       </div>
       <div class="col">
         <button class="w-100 btn btn-primary btn-lg"
@@ -110,7 +118,6 @@
                 th:onclick="|location.href='@{/yw/boards/{id}/delete(id=${board.id})}'|"
                 type="button">삭제</button>
       </div>
-
       <div class="col">
         <button class="w-100 btn btn-secondary btn-lg"
                 onclick="location.href='item.html'"

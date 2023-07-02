@@ -50,4 +50,5 @@ public class MypageService {
                             .collect(Collectors.toList());
             return tolist;
         }
+
 }

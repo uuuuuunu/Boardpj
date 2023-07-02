@@ -7,13 +7,19 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ptp.myboard.domain.Board;
+import ptp.myboard.domain.Image;
 import ptp.myboard.domain.Member;
 import ptp.myboard.service.BoardService;
+import ptp.myboard.service.ImageService;
 import ptp.myboard.service.MemberService;
 import ptp.myboard.service.MypageService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +32,7 @@ public class MypageController {
     private final MemberService memberService;
     private final MypageService mypageService;
     private final BoardService boardService;
-    private final Board board;
+    private final ImageService imageService;
 
     @ModelAttribute
     public void nicknameinform(Principal principal, Model model){
@@ -77,6 +83,11 @@ public class MypageController {
         String nickname=principal.getName();
         model.addAttribute("board",findb);
         model.addAttribute("nickname",nickname);
+        //Image image = imageService.findByimgid(id);
+        List<Image> image = findb.getImage();
+        for (Image image1 : image) {
+            model.addAttribute("image",image1);
+        }
         return "basic/mypage/myboard";
     }
 
@@ -89,13 +100,19 @@ public class MypageController {
         return "basic/mypage/editform";
     }
 
+
     @PostMapping ("/boards/{id}/edit")
-    public String editbd(@PathVariable Long id, @ModelAttribute("board") @Valid Board board,BindingResult bindingResult){
+    public String editbd(@PathVariable Long id, @ModelAttribute("board") @Valid Board board,
+                         BindingResult bindingResult, @RequestPart MultipartFile imgfile, Image image,
+                         HttpServletRequest request)
+            throws IOException {
         if(bindingResult.hasErrors()){
             return "basic/mypage/editform";
         }
-        boardService.update(id,board);
+        boardService.update(id, board, imgfile, image);
         return "redirect:/yw/boards/{id}";
+
+
     }
     @GetMapping  ("/boards/{id}/delete")
     public String delete(@PathVariable Long id, Board board,Model model){

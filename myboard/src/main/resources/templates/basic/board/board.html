@@ -14,6 +14,9 @@
     .image{
       text-align: center;
     }
+    .cont{
+      height: 500px;
+    }
   </style>
 </head>
 <body>
@@ -24,8 +27,6 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
       </ul>
-
-
     </div>
     <form class="d-flex">
       <div>
@@ -46,7 +47,7 @@
 <header class="bg-dark py-5">
   <div class="container px-4 px-lg-5 my-5">
     <div class="text-center text-white">
-      <h1 class="display-4 fw-bolder">CBNU Market</h1>
+      <h1 class="display-4 fw-bolder" th:onclick="|location.href='/yw/boards'|">CBNU Market</h1>
       <p class="lead fw-normal text-white-50 mb-0"></p>
     </div>
   </div>
@@ -82,13 +83,15 @@
   </div>
   <div>
     <label for="cont">내용</label>
-    <input type="text" id="cont" name="cont" class="form-control"
+    <input type="text" id="cont" name="cont" class="form-control" height="500px"
            th:value="${board.cont}" readonly>
   </div>
   <form>
     <label>상품사진</label>
     <div class="image">
-      <<img th:src="@{${image.getImagePath()}}">>
+      <tr th:each="image:${board.getImage()}">
+        <img th:src="@{${image.getImagePath()}}" width="1100px">
+      </tr>
     </div>
   </form>
     <div class="col">

@@ -44,7 +44,7 @@
 <header class="bg-dark py-5">
   <div class="container px-4 px-lg-5 my-5">
     <div class="text-center text-white">
-      <h1 class="display-4 fw-bolder">CBNU Market</h1>
+      <h1 class="display-4 fw-bolder" th:onclick="|location.href='/yw/boards'|">CBNU Market</h1>
       <p class="lead fw-normal text-white-50 mb-0"></p>
     </div>
   </div>
@@ -59,7 +59,7 @@
     </div>
     <div>
       <label for="password">비밀번호</label>
-      <input type="text" id="password" name="password" class="form-control"  th:errorclass="field-error"
+      <input type="password" id="password" name="password" class="form-control"  th:errorclass="field-error"
             th:field="*{password}">
       <div th:each="msg:${#fields.errors('password')}">
         <p th:text="${msg}"></p>
