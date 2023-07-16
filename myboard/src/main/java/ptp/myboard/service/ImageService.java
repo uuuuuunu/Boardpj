@@ -34,31 +34,31 @@ public class ImageService {
         return imgs;
     }
 
-    public void uploadImage(MultipartFile imgfile, Image image) throws IOException {
-        String orgname=imgfile.getOriginalFilename();
-        String imgName=uuidname(orgname);
-        //log.info("orgname={}",imgfile.getOriginalFilename());
-        //log.info("imgname={}",imgName);
-        File saveFile=new File(property,imgName);
-        imgfile.transferTo(saveFile);
-        image.setOrgImageName(imgName);
-        image.setImagePath("/image/"+imgName);
-        //log.info("imagepath={}",image.getImagePath());
-        pathsave(image);
-    }
-    public void updateImage(Board board,MultipartFile imgfile) throws IOException{
-        List<Image> images = board.getImage();
-        Image img=new Image();
-        if(imgfile.getOriginalFilename()!=null) {
-            for (Image image : images) {
-                Long imageId = image.getImageId();
-                File f=new File(property,image.getOrgImageName());
-                f.delete();
-                imageRepository.deleteById(imageId);
-                img.setBoard(image.getBoard());
-            }
-            uploadImage(imgfile, img);
+    public void uploadImage(List<MultipartFile> imgfile,Board board) throws IOException {
+        for (MultipartFile files : imgfile) {
+            Image image=new Image();
+            String orgname=files.getOriginalFilename();
+            String imgName=uuidname(orgname);
+            log.info("orgname={}",files.getOriginalFilename());
+            log.info("imgname={}",imgName);
+            File saveFile=new File(property,imgName);
+            files.transferTo(saveFile);
+            image.setOrgImageName(imgName);
+            image.setImagePath("/image/"+imgName);
+            image.setBoard(board);
+            log.info("imagepath={}",image.getImagePath());
+            pathsave(image);
         }
+    }
+    public void updateImage(Board board,List<MultipartFile> imgfile) throws IOException {
+        List<Image> images = board.getImage();
+        //log.info("imgsize={}",imgfile.size());
+        for(Image image:images){
+            File f=new File(property,image.getOrgImageName());
+            f.delete();
+            imageRepository.delete(image);
+        }
+        uploadImage(imgfile,board);
     }
 
     private String uuidname(String orgname){

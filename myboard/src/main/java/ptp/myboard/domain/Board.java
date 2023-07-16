@@ -35,7 +35,7 @@ public class Board {
     @JoinColumn(name="member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board",cascade = CascadeType.ALL)
     private List<Image> image;
     @Min(value = 1000, message = "최소 입력금액은 1000원입니다.")
     private int price;
