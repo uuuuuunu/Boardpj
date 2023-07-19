@@ -1,45 +1,80 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
     <meta charset="utf-8">
     <link th:href="@{/css/bootstrap.min.css}"
           href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
+    <style>
+        *{
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .text-center{
+            color: white;
+        }
+        .py-xl-1{
+            background-color: black;
+        }
+        .footer{
+            background-color: black;
+            height: 300px;
+        }
+        .py-3 text-center{
+            color:white;
+        }
+        #wrapper{
+            height : 100%;
+        }
+        .name{
+            text-align: center;
+            font-size: x-large;
+            color: white;
+            padding: 60px;
+        }
+
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">CBNU Market</a>
+        <a class="navbar-brand" href="#!">spring.com</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     </div>
 </nav>
-<header class="bg-dark py-5">
+<header class="py-xl-1">
     <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">CBNU Market</h1>
+        <div class="text-center">
+            <h1 class="display-4 fw-bolder">안녕하세요!</h1>
+            <h1 class="display-4 fw-bolder">spring.com</h1>
             <p class="lead fw-normal text-white-50 mb-0"></p>
         </div>
     </div>
+    <div class="container" style="max-width: 600px">
+        <div class="py-3 text-center">
+            <h1>회원만 이용 가능합니다.</h1>
+            <h1>지금 회원가입 하세요!</h1>
+            <br>
+            <div class="col">
+                <h2 th:onclick="|location.href='/yw/join'|">👉 JOIN</h2>
+            </div>
+            <br>
+            <div class="col">
+                <h2 th:onclick="|location.href='/yw/login'|">👉 LOGIN</h2>
+            </div>
+        </div>
+        <hr class="my-4">
+    </div> <!-- /container -->
 </header>
-
-<div class="container" style="max-width: 600px">
-    <div class="py-5 text-center">
-        <h2>회원만 이용 가능 합니다. 지금 회원가입하세요 !</h2>
+<footer class="footer">
+    <div class="name">
+        <a>YOONWOO AHN, 안 윤우</a><br>
+        <a>+82 10-8883-1737</a><br>
+        <a>anyunu9@gmail.com</a><br>
+        <a>GitHub: https://github.com/uuuuuunu</a>
     </div>
-    <div class="row">
-        <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg" type="button"
-                    th:onclick="|location.href='/yw/join'|">
-                회원 가입
-            </button>
-        </div>
-        <div class="col">
-            <button class="w-100 btn btn-dark btn-lg"
-                    th:onclick="|location.href='/yw/login'|">
-                로그인
-            </button>
-        </div>
-    </div>
-    <hr class="my-4">
-</div> <!-- /container -->
+</footer>
 </body>
 </html>

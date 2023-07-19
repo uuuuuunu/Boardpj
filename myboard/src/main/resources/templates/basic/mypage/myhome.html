@@ -4,11 +4,40 @@
     <meta charset="utf-8">
     <link th:href="@{/css/bootstrap.min.css}"
           href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
+    <style>
+        *{
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        html,body{
+            height: 100%;
+        }
+        .py-xl-1{
+            background-color: black;
+        }
+        .footer{
+            background-color: black;
+            width: 100%;
+            height: 300px;
+        }
+        #wrapper{
+            height : 100%;
+        }
+        .name{
+            text-align: center;
+            font-size: x-large;
+            color: white;
+            padding: 60px;
+        }
+    </style>
 </head>
+
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" th:onclick="|location.href='/yw/boards'|">CBNU Market</a>
+        <a class="navbar-brand" th:onclick="|location.href='/yw/boards'|">spring.com</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     </div>
     <form class="d-flex">
@@ -26,22 +55,21 @@
         </button>
     </form>
 </nav>
-<header class="bg-dark py-5">
+<header class="py-xl-1">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder" th:onclick="|location.href='/yw/boards'|" >CBNU Market</h1>
+            <h1 class="display-4 fw-bolder" th:onclick="|location.href='/yw/boards'|">spring.com</h1>
             <p class="lead fw-normal text-white-50 mb-0"></p>
         </div>
     </div>
 </header>
-
 <div class="container" style="max-width: 600px">
     <div class="py-5 text-center">
         <h2>Mypage</h2>
     </div>
     <div class="row">
         <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg" type="button"
+            <button class="w-100 btn btn-dark btn-lg" type="button"
                     th:onclick="|location.href='@{/yw/boards/{id}/myedit(id=${mypage.username})}'|">
                 내 정보 수정
             </button>
@@ -55,5 +83,14 @@
     </div>
     <hr class="my-4">
 </div> <!-- /container -->
+<br>
 </body>
+<footer class="footer">
+    <div class="name">
+        <a>YOONWOO AHN, 안 윤우</a><br>
+        <a>+82 10-8883-1737</a><br>
+        <a>anyunu9@gmail.com</a><br>
+        <a>GitHub: https://github.com/uuuuuunu</a>
+    </div>
+</footer>
 </html>
