@@ -96,11 +96,11 @@
       </tr>
       </thead>
       <tbody class="bd2">
-      <tr th:each="board:${boards}">
+      <tr id="boards" th:each="board:${boards}">
         <td><a href="../../../static/board.html" th:href="@{/yw/boards/{id}/{imageId}(id=${board.id})}" th:text="${board.id}"></a></td>
         <td th:text="${board.sts}"></td>
+        <td id="price" th:text="${board.price}"></td>
         <td><a href="../../../static/board.html" th:href="@{/yw/boards/{id}(id=${board.id})}" th:text="${board.title}"></a></td>
-        <td th:text="${board.price}"></td>
         <td th:text="${board.member.getNickname()}"></td>
         <td th:text="${board.creatAt}"></td>
         <td th:text="${board.hit}"></td>

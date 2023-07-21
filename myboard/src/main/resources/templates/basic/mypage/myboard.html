@@ -83,8 +83,15 @@
   </div>
   <div>
     <label for="price">가격</label>
-    <input type="text" id="price" name="price" class="form-control"
-           th:value="${board.price}" readonly>
+    <textarea type="text" id="price" name="price" class="form-control"
+              th:value="${board.price}" rows="1" readonly></textarea>
+    <script th:inline="javascript">
+      const element=document.getElementById("price");
+      const c2 = [[${board.price}]];
+      let c1=c2.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원";
+      console.log(c2);
+      element.innerText=c1;
+    </script>
   </div>
   <div>
     <label for="creatAt">날짜</label>
