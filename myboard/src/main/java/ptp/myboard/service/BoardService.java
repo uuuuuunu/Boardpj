@@ -48,13 +48,18 @@ public class BoardService {
     }
 
     @Transactional
-    public void update(Long id, @NotNull Board board,MultipartFile imgfile,Image image) throws IOException {
+    public void update(Long id, @NotNull Board board,List<MultipartFile> imgfile) throws IOException {
         Board findboard=findById(id);
         findboard.setCont(board.getCont());
         findboard.setTitle(board.getTitle());
         findboard.setSts(board.getSts());
         findboard.setPrice(board.getPrice());
-        imageService.updateImage(findboard, imgfile);
+        //log.info("imgfile2={}",imgfile.isEmpty());
+        //log.info("imgfile3={}",imgfile.size());
+        log.info("imgfilelength={}",imgfile.get(0).getOriginalFilename().length());
+        if(imgfile.get(0).getOriginalFilename().length()>1){
+            imageService.updateImage(findboard,imgfile);
+        }
     }
 
     public Board Hit(Long Id){

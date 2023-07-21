@@ -18,6 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private PrincipalDetailService principalDetailService;
 
+
     @Autowired
     public SecurityConfig(PrincipalDetailService principalDetailService) {
         this.principalDetailService = principalDetailService;
@@ -41,14 +42,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/fonts/**",
                 "/scripts/**",
         };
+
         http.csrf().disable()
             .authorizeRequests()
                 .antMatchers("/yw","/yw/join","/yw/login","/test").permitAll()
                 .antMatchers("/static/css/**").permitAll()
+                .antMatchers("https://fonts.googleapis.com").permitAll()
                 .antMatchers(staticResources).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/basic/login/loginform")
                 .usernameParameter("username")
                 .loginPage("/yw/login").loginProcessingUrl("/yw/login").defaultSuccessUrl("/yw/boards")
                 .and()

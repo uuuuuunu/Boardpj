@@ -29,6 +29,7 @@ public class ImageService {
     public Image findByimgid(Long id){
         return imageRepository.getReferenceById(id);
     }
+
     public List<Image> findAllImg(Image image){
         List<Image> imgs=imageRepository.findAll();
         return imgs;
@@ -39,14 +40,14 @@ public class ImageService {
             Image image=new Image();
             String orgname=files.getOriginalFilename();
             String imgName=uuidname(orgname);
-            log.info("orgname={}",files.getOriginalFilename());
-            log.info("imgname={}",imgName);
+            //log.info("orgname={}",files.getOriginalFilename());
+            //log.info("imgname={}",imgName);
             File saveFile=new File(property,imgName);
             files.transferTo(saveFile);
             image.setOrgImageName(imgName);
             image.setImagePath("/image/"+imgName);
             image.setBoard(board);
-            log.info("imagepath={}",image.getImagePath());
+            //log.info("imagepath={}",image.getImagePath());
             pathsave(image);
         }
     }

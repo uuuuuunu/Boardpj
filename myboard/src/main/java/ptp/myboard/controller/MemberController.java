@@ -49,7 +49,7 @@ public class MemberController {
         return "basic/login/loginform";
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @GetMapping("/logout")
     public String logout(){
         return "redirect:/yw/login";
     }

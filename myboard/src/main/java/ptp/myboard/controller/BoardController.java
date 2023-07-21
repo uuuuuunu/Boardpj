@@ -50,6 +50,9 @@ public class BoardController {
     @GetMapping("/boards")
     public String boardList(Board board, Model model) {
         List<Board> boards = boardService.findAllbd(board);
+        for (Board board1 : boards) {
+            List<Image> image = board1.getImage();
+        }
         model.addAttribute("boards", boards);
         return "basic/board/boards";
     }
@@ -68,7 +71,7 @@ public class BoardController {
     @PostMapping("/boards/new")
     public String newboard(@ModelAttribute("board")@Valid Board board , BindingResult bindingResult,
                            Principal principal,Model model,
-                           @RequestPart MultipartFile imgfile, Image image) throws IOException {
+                           @RequestPart List<MultipartFile> imgfile, Image image) throws IOException {
         if(bindingResult.hasErrors()){
             return "basic/board/addboard";
         }
@@ -79,7 +82,7 @@ public class BoardController {
         board.setImage(imgs);
         image.setBoard(board);
         boardService.boardSave(board);
-        imageService.uploadImage(imgfile,image);
+        imageService.uploadImage(imgfile,board);
         model.addAttribute("image",image);
         return "redirect:/yw/boards";
     }
@@ -92,6 +95,10 @@ public class BoardController {
         String nickname=principal.getName();
         model.addAttribute("nickname",nickname);
         model.addAttribute("board",findbd);
+        String cont=findbd.getCont().replace("\r\n","<br>");
+        log.info("cont={}",cont);
+        log.info("boardcont={}",findbd.getCont());
+        model.addAttribute("cont",cont);
         return "basic/board/board";
     }
 }

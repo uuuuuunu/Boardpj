@@ -44,7 +44,6 @@ public class MypageService {
         public List<Board> mypagepost(String username) {
             List<Board> allbd = boardService.findAllbd(board);
             Member byId = memberService.findById(username);
-            List<Board> mypagepost = new ArrayList<>();
             List<Board> tolist=
                     allbd.stream().filter(i->i.getMember().getUsername().equals(byId.getUsername()))
                             .collect(Collectors.toList());

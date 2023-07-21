@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ptp.myboard.domain.Board;
@@ -18,10 +17,8 @@ import ptp.myboard.service.MypageService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -97,19 +94,19 @@ public class MypageController {
         String nickname=principal.getName();
         model.addAttribute("board",findbd);
         model.addAttribute("nickname",nickname);
-        return "basic/mypage/editform";
+        return "basic/mypage/myboardedit";
     }
 
 
     @PostMapping ("/boards/{id}/edit")
     public String editbd(@PathVariable Long id, @ModelAttribute("board") @Valid Board board,
-                         BindingResult bindingResult, @RequestPart MultipartFile imgfile, Image image,
+                         BindingResult bindingResult, @RequestPart List<MultipartFile> imgfile, Image image,
                          HttpServletRequest request)
             throws IOException {
         if(bindingResult.hasErrors()){
-            return "basic/mypage/editform";
+            return "basic/mypage/myboardedit";
         }
-        boardService.update(id, board, imgfile, image);
+        boardService.update(id, board, imgfile);
         return "redirect:/yw/boards/{id}";
 
 
