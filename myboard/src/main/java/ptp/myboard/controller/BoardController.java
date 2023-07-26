@@ -96,8 +96,6 @@ public class BoardController {
         model.addAttribute("nickname",nickname);
         model.addAttribute("board",findbd);
         String cont=findbd.getCont().replace("\r\n","<br>");
-        log.info("cont={}",cont);
-        log.info("boardcont={}",findbd.getCont());
         model.addAttribute("cont",cont);
         return "basic/board/board";
     }

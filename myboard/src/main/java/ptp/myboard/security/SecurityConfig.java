@@ -55,11 +55,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/basic/login/loginform")
                 .usernameParameter("username")
                 .loginPage("/yw/login").loginProcessingUrl("/yw/login").defaultSuccessUrl("/yw/boards")
-                .and()
-                .logout()
-                .logoutUrl("/yw/logout")
                 .permitAll();
         http.headers().contentTypeOptions().disable();
+        http.logout()
+                .logoutUrl("/yw/logout")
+                .logoutSuccessUrl("/yw/login")
+                .permitAll();
     }
 
 

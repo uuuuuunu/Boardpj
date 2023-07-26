@@ -101,14 +101,7 @@
                 th:field="*{price}" rows="1"></textarea>
       <div th:each="msg:${#fields.errors('price')}">
         <p th:text="${msg}"></p>
-      </div>
-      <script th:inline="javascript">
-        const element=document.getElementById("price");
-        const c2 = [[${board.price}]];
-        let c1=c2.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원";
-        console.log(c2);
-        element.innerText=c1;
-      </script>
+      </div>1
     </div>
     <div>
       <div>판매상태선택</div>

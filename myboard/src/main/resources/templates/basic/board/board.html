@@ -102,10 +102,8 @@
       const element=document.getElementById("price");
       const c2 = [[${board.price}]];
       let c1=c2.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원";
-      console.log(c2);
       element.innerText=c1;
   </script>
-
   <div>
     <label for="creatAt">날짜</label>
     <input type="text" id="creatAt" name="creatAt" class="form-control"
@@ -121,7 +119,6 @@
     <textarea type="text" id="cont" name="cont" class="form-control" rows="5"
               th:text="${board.cont}" readonly></textarea>
   </div>
-
   <form>
     <label>상품사진</label>
     <div class="image">
@@ -136,7 +133,6 @@
               th:onclick="|location.href='/yw/boards'|"
               type="button">목록으로</button>
     </div>
-
 </div>
 <br>
 </body>

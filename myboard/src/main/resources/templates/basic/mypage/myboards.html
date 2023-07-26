@@ -88,7 +88,7 @@
   </div>
   <hr class="my-4">
   <div>
-    <table class="table">
+    <table id="mybdtable" class="table">
       <thead>
       <tr>
         <th>글번호</th>
@@ -112,6 +112,15 @@
           <td th:text="${mypost.hit}"></td>
         </tr>
       </tbody>
+      <script th:inline="javascript">
+        var table=document.getElementById("mybdtable");
+        var rowList=table.rows;
+        for(var i=1;i<rowList.length;i++){
+          var row=rowList[i];
+          var col=row.cells[3].innerText.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원";
+          table.getElementsByTagName('tr')[i].getElementsByTagName('td')[3].innerHTML=col;
+        }
+      </script>
     </table>
   </div>
 </div> <!-- /container -->

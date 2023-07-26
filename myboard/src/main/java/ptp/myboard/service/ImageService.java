@@ -37,18 +37,20 @@ public class ImageService {
 
     public void uploadImage(List<MultipartFile> imgfile,Board board) throws IOException {
         for (MultipartFile files : imgfile) {
-            Image image=new Image();
-            String orgname=files.getOriginalFilename();
-            String imgName=uuidname(orgname);
-            //log.info("orgname={}",files.getOriginalFilename());
-            //log.info("imgname={}",imgName);
-            File saveFile=new File(property,imgName);
-            files.transferTo(saveFile);
-            image.setOrgImageName(imgName);
-            image.setImagePath("/image/"+imgName);
-            image.setBoard(board);
-            //log.info("imagepath={}",image.getImagePath());
-            pathsave(image);
+            if(!files.isEmpty()){
+                Image image=new Image();
+                String orgname=files.getOriginalFilename();
+                String imgName=uuidname(orgname);
+                //log.info("orgname={}",files.getOriginalFilename());
+                //log.info("imgname={}",imgName);
+                File saveFile=new File(property,imgName);
+                files.transferTo(saveFile);
+                image.setOrgImageName(imgName);
+                image.setImagePath("/image/"+imgName);
+                image.setBoard(board);
+                //log.info("imagepath={}",image.getImagePath());
+                pathsave(image);
+            }
         }
     }
     public void updateImage(Board board,List<MultipartFile> imgfile) throws IOException {
