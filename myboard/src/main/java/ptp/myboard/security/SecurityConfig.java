@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -16,12 +17,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    private PrincipalDetailService principalDetailService;
+    private final PrincipalDetailService principalDetailService;
+    private final AuthenticationFailureHandler customAuthFailureHandler;
 
 
     @Autowired
-    public SecurityConfig(PrincipalDetailService principalDetailService) {
+    public SecurityConfig(PrincipalDetailService principalDetailService, AuthenticationFailureHandler customAuthFailureHandler) {
         this.principalDetailService = principalDetailService;
+        this.customAuthFailureHandler = customAuthFailureHandler;
     }
 
     @Bean
@@ -54,7 +57,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/basic/login/loginform")
                 .usernameParameter("username")
-                .loginPage("/yw/login").loginProcessingUrl("/yw/login").defaultSuccessUrl("/yw/boards")
+                .loginPage("/yw/login")
+                .loginProcessingUrl("/yw/login")
+                .defaultSuccessUrl("/yw/boards")
+                .failureHandler(customAuthFailureHandler)
                 .permitAll();
         http.headers().contentTypeOptions().disable();
         http.logout()

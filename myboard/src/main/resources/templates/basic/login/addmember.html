@@ -98,7 +98,11 @@
         </div>
         <div>
             <label for="phnum">휴대폰번호</label>
-            <input type="text" id="phnum" th:field="*{phnum}" name="phnum" class="form-control">
+            <input type="text" id="phnum" th:field="*{phnum}" name="phnum" class="form-control"
+            th:errorclass="field-error">
+            <div th:each="msg:${#fields.errors('phnum')}">
+                <p th:text="${msg}"></p>
+            </div>
         </div>
         <div>
             <label for="email">e-mail</label>

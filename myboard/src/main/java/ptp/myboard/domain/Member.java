@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @NoArgsConstructor
@@ -34,6 +35,9 @@ public class Member {
     @NotEmpty(message = "닉네임은 필수 입력사항 입니다.")
     private String nickname;
 
+    @NotEmpty(message = "휴대폰번호는 필수 입력사항 입니다.")
+    @Pattern(regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$",
+            message = "10 ~ 11 자리의 숫자만 입력 가능합니다.")
     private String phnum;
 
     private String orgpassword;

@@ -82,6 +82,11 @@
     <input type="text" id="name" name="name" class="form-control" th:value="${nickname}" readonly>
   </div>
   <div>
+    <label for="nick">휴대폰번호</label>
+    <input type="text" id="phnum" name="nick" class="form-control"
+           th:value="${board.getMember().getPhnum()}" readonly>
+  </div>
+  <div>
     <label for="price">가격</label>
     <textarea type="text" id="price" name="price" class="form-control"
               th:value="${board.price}" rows="1" readonly></textarea>
