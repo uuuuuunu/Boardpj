@@ -77,6 +77,14 @@
   <div class="py-5 text-center">
     <h2>게시물 목록</h2>
   </div>
+  <nav class="navbar navbar-light">
+    <div class="container-fluid">
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
   <div class="row">
     <div class="col">
       <h2 th:onclick="|location.href='/yw/boards/new'|">✏ 게시글 등록하기</h2>
@@ -101,8 +109,7 @@
         <td><a href="../../../static/board.html" th:href="@{/yw/boards/{id}/{imageId}(id=${board.id})}" th:text="${board.id}"></a></td>
         <td th:text="${board.sts}"></td>
         <td><a href="../../../static/board.html" th:href="@{/yw/boards/{id}(id=${board.id})}" th:text="${board.title}"></a></td>
-          <td id="price" th:text="${board.price}"></td>
-
+        <td id="price" th:text="${board.price}"></td>
         <td th:text="${board.member.getNickname()}"></td>
         <td th:text="${board.creatAt}"></td>
         <td th:text="${board.hit}"></td>

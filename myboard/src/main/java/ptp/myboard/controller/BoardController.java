@@ -16,14 +16,19 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import ptp.myboard.domain.Board;
 import ptp.myboard.domain.Member;
+
+import ptp.myboard.domain.Reply;
 import ptp.myboard.service.BoardService;
 import ptp.myboard.service.ImageService;
 import ptp.myboard.service.MemberService;
 import ptp.myboard.domain.Image;
+import ptp.myboard.service.ReplyService;
+
+
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Collection;
+
 import java.util.List;
 
 
@@ -35,8 +40,7 @@ public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
     private final ImageService imageService;
-
-
+    private final ReplyService replyService;
 
 
     @ModelAttribute
@@ -48,7 +52,7 @@ public class BoardController {
     }
 
     @GetMapping("/boards")
-    public String boardList(Board board, Model model) {
+    public String boardList(Board board, Model model,Principal principal) {
         List<Board> boards = boardService.findAllbd(board);
         for (Board board1 : boards) {
             List<Image> image = board1.getImage();
@@ -89,15 +93,30 @@ public class BoardController {
 
     @GetMapping("/boards/{id}")
     public String board(@PathVariable Long id,
-                        @NotNull Model model, @NotNull Principal principal) throws IOException {
+                        @NotNull Model model, @NotNull Principal principal,
+                        @ModelAttribute("reply") Reply reply) throws IOException {
         Board findbd=boardService.findById(id);
         boardService.Hit(id);
         String nickname=principal.getName();
         model.addAttribute("nickname",nickname);
         model.addAttribute("board",findbd);
-        String cont=findbd.getCont().replace("\r\n","<br>");
-        model.addAttribute("cont",cont);
+        if (reply != null) {
+            List<Reply> allrep = replyService.findreply(reply,id);
+            model.addAttribute("replys",allrep);
+        }
         return "basic/board/board";
+    }
+
+    @PostMapping("/boards/{id}")
+    public String repboard(@PathVariable Long id,Reply reply,Principal principal){
+        Board findbd=boardService.findById(id);
+        String username=principal.getName();
+        Member member=memberService.findById(username);
+        reply.setBoard(findbd);
+        reply.setMember(member);
+        replyService.saveReply(reply);
+        return "redirect:/yw/boards/{id}";
+        
     }
 }
 

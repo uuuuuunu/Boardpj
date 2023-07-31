@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -29,9 +30,9 @@ public class Member {
     @Length(min = 8 ,message = "비밀번호는 최소 8글자를 입력해주세요.")
     private String password;
 
-
     @NotEmpty(message = "이름은 필수 입력사항 입니다.")
     private String name;
+
     @NotEmpty(message = "닉네임은 필수 입력사항 입니다.")
     private String nickname;
 

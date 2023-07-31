@@ -2,17 +2,12 @@ package ptp.myboard.domain;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicInsert;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import javax.imageio.ImageIO;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -37,6 +32,10 @@ public class Board {
 
     @OneToMany(mappedBy = "board",cascade = CascadeType.ALL)
     private List<Image> image;
+
+    //@OneToMany(mappedBy = "board",cascade = CascadeType.ALL)
+   // private List<Reply> reply;
+
     @Min(value = 1000, message = "최소 입력금액은 1000원입니다.")
     private int price;
     @NotEmpty(message = "내용을 입력하세요")

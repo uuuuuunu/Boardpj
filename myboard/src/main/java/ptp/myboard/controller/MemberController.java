@@ -40,7 +40,6 @@ public class MemberController {
         String encPassword=passwordEncoder.encode(rawPassword);
         member.setPassword(encPassword);
         memberService.memberSave(member);
-        log.info("username={}",member.getUsername());
         return "redirect:/yw";
     }
 
