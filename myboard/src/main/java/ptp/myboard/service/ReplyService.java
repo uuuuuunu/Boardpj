@@ -28,4 +28,15 @@ public class ReplyService {
         return findAllreply(reply).stream()
                 .filter(i->i.getBoard().getId().equals(id)).collect(Collectors.toList());
     }
+    public List<Reply> findUserReply(Reply reply,String username){
+        return findAllreply(reply).stream()
+                .filter(i->i.getMember().getUsername().equals(username)).collect(Collectors.toList());
+    }
+
+    public void deleteReplyById(Long id){
+        replyRepository.deleteById(id);
+    }
+    public void deleteReply(Reply reply){
+        replyRepository.delete(reply);
+    }
 }

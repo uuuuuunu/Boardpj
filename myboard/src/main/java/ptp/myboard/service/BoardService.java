@@ -43,7 +43,7 @@ public class BoardService {
 
 
     public void Delete(long id){
-        imageRepository.deleteById(id);
+        //imageRepository.deleteById(id);
         boardRepository.deleteById(id);
     }
 

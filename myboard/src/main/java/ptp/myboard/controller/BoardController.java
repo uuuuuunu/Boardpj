@@ -57,6 +57,8 @@ public class BoardController {
         for (Board board1 : boards) {
             List<Image> image = board1.getImage();
         }
+        Member byId = memberService.findById(principal.getName());
+        model.addAttribute("mypage",byId);
         model.addAttribute("boards", boards);
         return "basic/board/boards";
     }

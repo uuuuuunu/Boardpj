@@ -48,17 +48,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
       </ul>
-
-
     </div>
     <form class="d-flex">
       <div>
         <h5 class="text-body" th:text="${mesg}"></h5>
       </div>
-      <button class="btn btn-outline-dark" th:onclick="|location.href='/yw/boards/myhome'|" type="button" >
-        <i class="bi-cart-fill me-1"></i>
-        Mypage
-      </button>
       <button class="btn btn-outline-dark" th:onclick="|location.href='/yw/logout'|" type="button" >
         <i class="bi-cart-fill me-1"></i>
         logout
@@ -85,7 +79,7 @@
     </div>
     <div>
       <label for="password">비밀번호</label>
-      <input type="password" id="password" name="password" class="form-control"  th:errorclass="field-error"
+      <input type="text" id="password" name="password" class="form-control"  th:errorclass="field-error"
             th:field="*{password}">
       <div th:each="msg:${#fields.errors('password')}">
         <p th:text="${msg}"></p>

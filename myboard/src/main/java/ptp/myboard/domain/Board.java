@@ -33,8 +33,8 @@ public class Board {
     @OneToMany(mappedBy = "board",cascade = CascadeType.ALL)
     private List<Image> image;
 
-    //@OneToMany(mappedBy = "board",cascade = CascadeType.ALL)
-   // private List<Reply> reply;
+    @OneToMany(mappedBy = "board",cascade = CascadeType.ALL)
+    private List<Reply> reply;
 
     @Min(value = 1000, message = "최소 입력금액은 1000원입니다.")
     private int price;
@@ -50,6 +50,7 @@ public class Board {
     private String sts;
 
     public Integer hit=0;
+
 
     @Override
     public String toString() {

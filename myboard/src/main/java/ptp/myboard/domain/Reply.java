@@ -35,4 +35,5 @@ public class Reply {
     @CreationTimestamp
     @Column(name = "time")
     private LocalDate rpcreatAt;
+
 }

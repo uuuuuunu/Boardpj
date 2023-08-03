@@ -2,18 +2,18 @@ package ptp.myboard.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.exceptions.TemplateInputException;
 import ptp.myboard.domain.Board;
 import ptp.myboard.domain.Image;
 import ptp.myboard.domain.Member;
-import ptp.myboard.service.BoardService;
-import ptp.myboard.service.ImageService;
-import ptp.myboard.service.MemberService;
-import ptp.myboard.service.MypageService;
+import ptp.myboard.domain.Reply;
+import ptp.myboard.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -29,7 +29,7 @@ public class MypageController {
     private final MemberService memberService;
     private final MypageService mypageService;
     private final BoardService boardService;
-    private final ImageService imageService;
+    private final ReplyService replyService;
 
     @ModelAttribute
     public void nicknameinform(Principal principal, Model model){
@@ -42,13 +42,6 @@ public class MypageController {
     public void nickname(Principal principal,Model model){
         Member byId = memberService.findById(principal.getName());
         model.addAttribute("nick",byId.getNickname());
-    }
-
-    @GetMapping("/boards/myhome")
-    public String mypagehome(Model model,Principal principal){
-        Member byId = memberService.findById(principal.getName());
-        model.addAttribute("mypage",byId);
-        return "basic/mypage/myhome";
     }
 
     @GetMapping("boards/{username}/myedit")
@@ -64,7 +57,7 @@ public class MypageController {
             return "basic/mypage/myedit";
         }
         mypageService.editmember(username,member);
-        return "redirect:/yw/boards/myhome";
+        return "redirect:/yw/boards/{username}/myedit";
     }
 
     @GetMapping("boards/{username}/mypost")
@@ -72,6 +65,30 @@ public class MypageController {
         List<Board> mypagepost = mypageService.mypagepost(username);
         model.addAttribute("myposts",mypagepost);
         return "basic/mypage/myboards";
+    }
+    @GetMapping("boards/{username}/myreply")
+    public String myreplyform(@PathVariable String username,Model model,Reply reply){
+        List<Reply> userReply=replyService.findUserReply(reply, username);
+        model.addAttribute("userrep",userReply);
+        return "basic/mypage/myreplyboards";
+    }
+    @PostMapping("boards/{username}/myreply")
+    public String deletereply(@PathVariable String username,Reply reply,
+                              @RequestParam List<Long> chkrpy){
+        try {
+            List<Reply> userReply=replyService.findUserReply(reply, username);
+            for (Reply reply1 : userReply) {
+                for (Long chkrp : chkrpy) {
+                    log.info("chkrp={}",chkrp);
+                    if(reply1.getRepid().equals(chkrp)){
+                        replyService.deleteReply(reply1);
+                    }
+                }
+            }
+        }catch (TemplateInputException e){
+            return null;
+        }
+        return "redirect:/yw/boards/{username}/myreply";
     }
 
     @GetMapping("/boards/mypage/{id}")
@@ -117,5 +134,6 @@ public class MypageController {
         model.addAttribute("board",board);
         return "redirect:/yw/boards";
     }
+
 }
 

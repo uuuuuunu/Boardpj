@@ -2,8 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
+  <link href="css/styles.css" rel="stylesheet" />
   <link href="../css/bootstrap.min.css" rel="stylesheet"
         th:href="@{/css/bootstrap.min.css}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
@@ -32,32 +34,48 @@
   #wrapper{
     height : 100%;
   }
-  .name{
+  .name {
     text-align: center;
     font-size: x-large;
     color: white;
     padding: 60px;
   }
+  .navbar-nav{
+    margin-right: 30px;
+  }
+  li{
+    padding-right: 50px;
+  }
+
 </style>
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container px-4 px-lg-5">
-    <a class="navbar-brand" th:onclick="|location.href='/yw/boards'|">spring.com</a>
+    <h2 class="navbar-brand" th:onclick="|location.href='/yw/boards'|">spring.com</h2>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">  </a>
+        </li>
+        <li class="nav-item">
+          <h5 class="nav-link active" aria-current="page" th:onclick="|location.href='@{/yw/boards/{id}/myedit(id=${mypage.username})}'|">
+            Mypage</h5>
+        </li>
+        <li class="nav-item">
+          <h5 class="nav-link active" aria-current="page" th:onclick="|location.href='@{/yw/boards/{id}/mypost(id=${mypage.username})}'|">작성글관리</h5>
+        </li>
+        <li class="nav-item">
+          <h5 class="nav-link active" aria-current="page" th:onclick="|location.href='@{/yw/boards/{id}/myreply(id=${mypage.username})}'|">댓글관리</h5>
+        </li>
       </ul>
     </div>
+
     <form class="d-flex">
       <div>
         <h5 class="text-body" th:text="${mesg}"></h5>
       </div>
-
-      <button class="btn btn-outline-dark" th:onclick="|location.href='/yw/boards/myhome'|" type="button" >
-        <i class="bi-cart-fill me-1"></i>
-        Mypage
-      </button>
       <button class="btn btn-outline-dark" th:onclick="|location.href='/yw/logout'|" type="button" >
         <i class="bi-cart-fill me-1"></i>
         logout
@@ -128,12 +146,9 @@
       </tbody>
     </table>
   </div>
-
 </div> <!-- /container -->
 <br>
-
 </body>
-
 <footer class="footer">
   <div class="name">
     <a>YOONWOO AHN, 안 윤우</a><br>
