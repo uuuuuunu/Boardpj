@@ -66,6 +66,24 @@ public class MypageController {
         model.addAttribute("myposts",mypagepost);
         return "basic/mypage/myboards";
     }
+    @PostMapping("boards/{username}/mypost")
+    public String deleteboard(@PathVariable String username,Reply reply,
+                              @RequestParam List<Long> chkrpy){
+        try {
+            List<Board> mypagepost = mypageService.mypagepost(username);
+            for (Board board1 : mypagepost) {
+                for (Long chkrp : chkrpy) {
+                    log.info("chkrp={}",chkrp);
+                    if(board1.getId().equals(chkrp)){
+                        boardService.Delete(board1.getId());
+                    }
+                }
+            }
+        }catch (TemplateInputException e){
+            return null;
+        }
+        return "redirect:/yw/boards/{username}/mypost";
+    }
     @GetMapping("boards/{username}/myreply")
     public String myreplyform(@PathVariable String username,Model model,Reply reply){
         List<Reply> userReply=replyService.findUserReply(reply, username);

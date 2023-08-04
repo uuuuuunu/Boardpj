@@ -68,58 +68,65 @@
     </div>
   </div>
 </header>
-
-</header>
-<div class="container">
-  <div class="py-5 text-center">
-    <h2>내가 작성한 게시물</h2>
-  </div>
-  <div class="row">
-    <div class="col">
-      <button class="btn btn-outline-dark"
-
-              th:onclick="|location.href='/yw/boards'|"
-              type="button">홈으로 돌아가기</button>
+<form th:action method="post">
+  <div class="container">
+    <div class="py-5 text-center">
+      <h2>내가 작성한 게시물</h2>
     </div>
-  </div>
-  <hr class="my-4">
-  <div>
-    <table id="mybdtable" class="table">
-      <thead>
-      <tr>
-        <th>글번호</th>
-        <th>상태</th>
-        <th>상품명</th>
-        <th>가격</th>
-        <th>작성자</th>
-        <th>작성일자</th>
-        <th>조회수</th>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-outline-dark"
 
-      </tr>
-      </thead>
-      <tbody class="bd2">
+                th:onclick="|location.href='/yw/boards'|"
+                type="button">홈으로 돌아가기</button>
+      </div>
+    </div>
+    <hr class="my-4">
+    <div>
+      <table id="mybdtable" class="table">
+        <thead>
+        <tr>
+          <th>   </th>
+          <th>글번호</th>
+          <th>상태</th>
+          <th>상품명</th>
+          <th>가격</th>
+          <th>작성자</th>
+          <th>작성일자</th>
+          <th>조회수</th>
+        </tr>
+        </thead>
+        <tbody class="bd2">
         <tr th:each="mypost:${myposts}">
-          <td><a href="../../static/board.html" th:href="@{/yw/boards/mypage/{id}(id=${mypost.id})}" th:text="${mypost.id}"></a></td>
+          <div>
+            <td><input type="checkbox" id="chkrpy" name="chkrpy" class="form-check-input"
+                       th:value="${mypost.getId()}"></td>
+          </div>
+          <td><a th:href="@{/yw/boards/mypage/{id}(id=${mypost.id})}" th:text="${mypost.id}"></a></td>
           <td th:text="${mypost.sts}"></td>
-          <td><a href="../../static/board.html" th:href="@{/yw/boards/mypage/{id}(id=${mypost.id})}" th:text="${mypost.title}"></a></td>
+          <td><a th:href="@{/yw/boards/mypage/{id}(id=${mypost.id})}" th:text="${mypost.title}"></a></td>
           <td th:text="${mypost.price}"></td>
           <td th:text="${mypost.member.getNickname()}"></td>
           <td th:text="${mypost.creatAt}"></td>
           <td th:text="${mypost.hit}"></td>
         </tr>
-      </tbody>
-      <script th:inline="javascript">
-        var table=document.getElementById("mybdtable");
-        var rowList=table.rows;
-        for(var i=1;i<rowList.length;i++){
-          var row=rowList[i];
-          var col=row.cells[3].innerText.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원";
-          table.getElementsByTagName('tr')[i].getElementsByTagName('td')[3].innerHTML=col;
-        }
-      </script>
-    </table>
-  </div>
-</div> <!-- /container -->
+        </tbody>
+        <script th:inline="javascript">
+          var table=document.getElementById("mybdtable");
+          var rowList=table.rows;
+          for(var i=1;i<rowList.length;i++){
+            var row=rowList[i];
+            var col=row.cells[4].innerText.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원";
+            table.getElementsByTagName('tr')[i].getElementsByTagName('td')[3].innerHTML=col;
+          }
+        </script>
+      </table>
+    </div>
+    <div class="col">
+      <button th:action class="btn btn-outline-dark">삭제</button>
+    </div>
+  </div> <!-- /container -->
+</form>
 <br>
 </body>
 <footer class="footer">

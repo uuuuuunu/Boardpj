@@ -51,6 +51,7 @@ public class Board {
 
     public Integer hit=0;
 
+    public String keyword;
 
     @Override
     public String toString() {

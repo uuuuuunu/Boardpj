@@ -53,7 +53,7 @@ public class BoardController {
 
     @GetMapping("/boards")
     public String boardList(Board board, Model model,Principal principal) {
-        List<Board> boards = boardService.findAllbd(board);
+        List<Board> boards = boardService.findAllbd();
         for (Board board1 : boards) {
             List<Image> image = board1.getImage();
         }
@@ -61,6 +61,16 @@ public class BoardController {
         model.addAttribute("mypage",byId);
         model.addAttribute("boards", boards);
         return "basic/board/boards";
+    }
+
+    @GetMapping("/boards/search")
+    public String boardsearch(@RequestParam(value="keyword",required=false)String keyword,
+                              Model model,Principal principal){
+        List<Board> search=boardService.searchBoard(keyword);
+        model.addAttribute("search",search);
+        Member byId = memberService.findById(principal.getName());
+        model.addAttribute("mypage",byId);
+        return "basic/board/searchboards";
     }
 
     @GetMapping("/boards/new")

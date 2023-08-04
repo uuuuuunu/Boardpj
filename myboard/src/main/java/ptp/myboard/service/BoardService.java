@@ -15,6 +15,7 @@ import ptp.myboard.repository.ImageRepository;
 
 import javax.sound.sampled.FloatControl;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,11 +32,22 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
-    public List<Board> findAllbd(Board board){
+    public List<Board> findAllbd(){
         List<Board> boards= boardRepository.findAll();
         return boards;
     }
 
+    public List<Board> searchBoard(String keyword){
+        List<Board> searchboards=new ArrayList<>();
+        List<Board> boards=findAllbd();
+        for (Board board1 : boards) {
+            if(board1.getTitle().contains(keyword)){
+                searchboards.add(board1);
+            }
+        }
+        return searchboards;
+
+    }
 
     public Board findById(Long Id){
         return boardRepository.findById(Id).orElse(null);

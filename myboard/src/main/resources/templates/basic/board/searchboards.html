@@ -93,19 +93,13 @@
 </header>
 <div class="container">
   <div class="py-5 text-center">
-    <h2>게시물 목록</h2>
+    <h2>검색한 게시물</h2>
   </div>
-  <nav class="navbar navbar-light">
-    <div class="container-fluid">
-      <form action="/yw/boards/search" method="get" class="d-flex">
-        <input class="form-control me-2" name="keyword" id="keyword" type="text" placeholder="상품명을 검색하세요." aria-label="Search">
-        <button class="btn btn-outline-dark" type="submit">search</button>
-      </form>
-    </div>
-  </nav>
   <div class="row">
     <div class="col">
-      <h2 th:onclick="|location.href='/yw/boards/new'|">✏ 게시글 등록하기</h2>
+      <button class="btn btn-outline-dark"
+              th:onclick="|location.href='/yw/boards'|"
+              type="button">홈으로 돌아가기</button>
     </div>
   </div>
   <hr class="my-4">
@@ -123,7 +117,7 @@
       </tr>
       </thead>
       <tbody class="bd2">
-      <tr id="boards" th:each="board:${boards}">
+      <tr id="boards" th:each="board:${search}">
         <td><a th:href="@{/yw/boards/{id}/{imageId}(id=${board.id})}" th:text="${board.id}"></a></td>
         <td th:text="${board.sts}"></td>
         <td><a th:href="@{/yw/boards/{id}(id=${board.id})}" th:text="${board.title}"></a></td>
@@ -135,9 +129,7 @@
       <script th:inline="javascript">
         var table=document.getElementById("tablebd");
         var rowList=table.rows;
-        console.log('rowlistlg',rowList.length);
         for(var i=1;i<rowList.length;i++){
-          console.log('rowlistlg2',rowList.length);
           var row=rowList[i];
           var col=row.cells[3].innerText.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원";
           table.getElementsByTagName('tr')[i].getElementsByTagName('td')[3].innerHTML=col;
