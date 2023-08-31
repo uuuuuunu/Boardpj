@@ -53,6 +53,7 @@ public class Board {
 
     public String keyword;
 
+
     @Override
     public String toString() {
         return "Board{" +

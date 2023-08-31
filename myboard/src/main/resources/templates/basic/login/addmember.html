@@ -41,6 +41,9 @@
         }
     </style>
 </head>
+<script>
+
+</script>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
@@ -69,9 +72,35 @@
             <div th:each="msg:${#fields.errors('username')}">
                 <p th:text="${msg}"></p>
             </div>
-            <div>
-                <button type=submit class="btn btn-dark btn-sm">중복확인</button>
-            </div>
+            <input type="button" id="checkid" value="중복검사" onclick="sendAjaxRequest()">
+            <div><span id="result_checkId" style="font-size:20px;"></span></div>
+            <script>
+                var checked=false;
+                function sendAjaxRequest() {
+                    let username=$('#username').val();
+                    $.ajax({
+                        type: 'POST',
+                        contentType: 'text/plain',
+                        data: username,
+                        url: '/yw/checkid',
+                        success: function (data) {
+                            if(data==1){
+                                console.log(data);
+                                result="사용 가능한 ID 입니다."
+                                checked=true;
+                                console.log(checked);
+                                $("#result_checkId").html(result).css("color","green");
+                            }else{
+                                result="사용 불가능한 ID입니다. 다른 ID를 입력해주세요.";
+                                console.log(checked);
+                                $("#result_checkId").html(result).css("color","red");
+                            }
+                        },
+                    });
+                }
+            </script>
+
+
         </div>
         <div>
             <label for="password">비밀번호</label>
@@ -112,7 +141,7 @@
         <hr class="my-4">
         <div class="row">
             <div class="col">
-                <button class="w-100 btn btn-dark btn-lg" type="submit">회원 가입</button>
+                <button class="w-100 btn btn-dark btn-lg" type="submit" onclick="checked()">회원 가입</button>
             </div>
             <div class="col">
                 <button class="w-100 btn btn-dark btn-lg"
@@ -122,9 +151,6 @@
         </div>
         <br>
     </form>
-    <script type="text/javascript">
-
-    </script>
 </div> <!-- /container -->
 
 </body>

@@ -115,7 +115,6 @@ public class MypageController {
         String nickname=principal.getName();
         model.addAttribute("board",findb);
         model.addAttribute("nickname",nickname);
-        //Image image = imageService.findByimgid(id);
         List<Image> image = findb.getImage();
         for (Image image1 : image) {
             model.addAttribute("image",image1);

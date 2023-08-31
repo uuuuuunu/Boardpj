@@ -1,16 +1,20 @@
 package ptp.myboard.controller;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ptp.myboard.domain.Member;
 import ptp.myboard.repository.MemberReposirory;
 import ptp.myboard.service.MemberService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
@@ -30,17 +34,28 @@ public class MemberController {
         return "basic/login/addmember";
     }
 
+    @ModelAttribute("member")
+    @Validated // 추가
+    public Member createEmptyMember() {
+        return new Member();
+    }
+
+    @PostMapping("/checkid")
+    @ResponseBody
+    public int checkId(@RequestBody String username) {
+        log.info("username={}",username);
+        return memberService.findByIdBoolean(username);
+    }
+
     @PostMapping("/join")
-    public String Join(@Valid @ModelAttribute("member") Member member, BindingResult memberBindingResult, Model model){
+    public String Join(@Validated @ModelAttribute("member") Member member, BindingResult memberBindingResult, Model model){
         if(memberBindingResult.hasErrors()){
             return "basic/login/addmember";
         }
-        String rawPassword=member.getPassword();
-        member.setOrgpassword(rawPassword);
-        String encPassword=passwordEncoder.encode(rawPassword);
-        member.setPassword(encPassword);
+        member.setOrgpassword(member.getPassword());
+        member.setPassword(passwordEncoder.encode(member.getOrgpassword()));
         memberService.memberSave(member);
-        return "redirect:/yw";
+        return "redirect:/yw/login";
     }
 
     @GetMapping("/login")
@@ -49,7 +64,6 @@ public class MemberController {
                             Model model){
         model.addAttribute("error",error);
         model.addAttribute("exception",exception);
-        log.info("ex={}",exception);
         return "basic/login/loginform";
     }
 

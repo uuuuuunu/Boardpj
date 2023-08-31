@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
             .authorizeRequests()
-                .antMatchers("/yw","/yw/join","/yw/login","/test").permitAll()
+                .antMatchers("/yw","/yw/join","/yw/login","/test","/yw/checkid").permitAll()
                 .antMatchers("/static/css/**").permitAll()
                 .antMatchers("https://fonts.googleapis.com").permitAll()
                 .antMatchers(staticResources).permitAll()

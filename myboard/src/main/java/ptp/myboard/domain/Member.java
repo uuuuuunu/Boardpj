@@ -6,10 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Entity
@@ -22,7 +19,6 @@ public class Member {
     @Id
     @Column(name = "member_id")
     @NotEmpty(message = "아이디는 필수 입력사항 입니다.")
-    @NotNull(message = "이미 사용하고 있는 ID입니다.")
     @Length(min = 4, max = 12,message = "아이디 설정 범위는 4~12글자 입니다.")
     private String username;
 

@@ -17,7 +17,7 @@ import java.util.Optional;
 public class MemberService {
     private final MemberReposirory memberReposirory;
     public Member memberSave(Member member) {
-        if(findByIdBoolean(member.getUsername())==true){
+        if(findByIdBoolean(member.getUsername())==1){
             return memberReposirory.save(member);
         }else{
             member.setUsername(null);
@@ -25,7 +25,7 @@ public class MemberService {
         }
     }
 
-    public List<Member> Findmember(Member member) {
+    public List<Member> Findmember() {
         List<Member> findmem = memberReposirory.findAll();
         return findmem;
     }
@@ -35,12 +35,12 @@ public class MemberService {
     }
 
 
-    public boolean findByIdBoolean(String username){
+    public int findByIdBoolean(String username){
         if(findById(username)==null){
-            return true;
+            return 1;
         }
         else{
-            return false;
+            return 0;
         }
     }
 

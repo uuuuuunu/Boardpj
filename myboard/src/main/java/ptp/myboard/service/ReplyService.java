@@ -3,11 +3,8 @@ package ptp.myboard.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ptp.myboard.domain.Board;
 import ptp.myboard.domain.Reply;
 import ptp.myboard.repository.ReplyRepository;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
