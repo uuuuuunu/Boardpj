@@ -10,12 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ptp.myboard.domain.Member;
-import ptp.myboard.repository.MemberReposirory;
 import ptp.myboard.service.MemberService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/yw")
@@ -43,7 +39,6 @@ public class MemberController {
     @PostMapping("/checkid")
     @ResponseBody
     public int checkId(@RequestBody String username) {
-        log.info("username={}",username);
         return memberService.findByIdBoolean(username);
     }
 

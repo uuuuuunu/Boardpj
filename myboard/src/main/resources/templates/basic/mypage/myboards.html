@@ -102,9 +102,9 @@
             <td><input type="checkbox" id="chkrpy" name="chkrpy" class="form-check-input"
                        th:value="${mypost.getId()}"></td>
           </div>
-          <td><a th:href="@{/yw/boards/mypage/{id}(id=${mypost.id})}" th:text="${mypost.id}"></a></td>
+          <td><a th:href="@{/yw/boards/{id}/edit(id=${mypost.id})}" th:text="${mypost.id}"></a></td>
           <td th:text="${mypost.sts}"></td>
-          <td><a th:href="@{/yw/boards/mypage/{id}(id=${mypost.id})}" th:text="${mypost.title}"></a></td>
+          <td><a th:href="@{/yw/boards/{id}/edit(id=${mypost.id})}" th:text="${mypost.title}"></a></td>
           <td th:text="${mypost.price}"></td>
           <td th:text="${mypost.member.getNickname()}"></td>
           <td th:text="${mypost.creatAt}"></td>

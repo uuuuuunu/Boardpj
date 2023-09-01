@@ -39,7 +39,7 @@ public class Board {
     @Min(value = 1000, message = "최소 입력금액은 1000원입니다.")
     private int price;
     @NotEmpty(message = "내용을 입력하세요")
-    @Column(length = 200)
+    @Column(length = 2000)
     private String cont;
 
 

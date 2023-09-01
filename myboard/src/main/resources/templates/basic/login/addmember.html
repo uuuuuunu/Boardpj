@@ -68,39 +68,65 @@
         <div>
             <label for="username">아이디</label>
             <input type="text" id="username" th:field="*{username}" name="loginId" class="form-control"
-            th:errorclass="field-error">
+                   th:errorclass="field-error">
             <div th:each="msg:${#fields.errors('username')}">
                 <p th:text="${msg}"></p>
             </div>
             <input type="button" id="checkid" value="중복검사" onclick="sendAjaxRequest()">
             <div><span id="result_checkId" style="font-size:20px;"></span></div>
             <script>
-                var checked=false;
+                var checked = false;
+
                 function sendAjaxRequest() {
-                    let username=$('#username').val();
+                    let username = $('#username').val();
                     $.ajax({
                         type: 'POST',
                         contentType: 'text/plain',
                         data: username,
                         url: '/yw/checkid',
                         success: function (data) {
-                            if(data==1){
+                            if (data == 1) {
                                 console.log(data);
-                                result="사용 가능한 ID 입니다."
-                                checked=true;
+                                result = "사용 가능한 ID 입니다."
+                                checked = true;
                                 console.log(checked);
-                                $("#result_checkId").html(result).css("color","green");
-                            }else{
-                                result="사용 불가능한 ID입니다. 다른 ID를 입력해주세요.";
+                                $("#result_checkId").html(result).css("color", "green");
+                            } else {
+                                result = "사용 불가능한 ID입니다. 다른 ID를 입력해주세요.";
                                 console.log(checked);
-                                $("#result_checkId").html(result).css("color","red");
+                                $("#result_checkId").html(result).css("color", "red");
+                                checked = false;
                             }
                         },
+                        error: function (error) {
+                            console.error(error);
+                            checked = false;
+                        }
                     });
                 }
+
+                function test() {
+                    if (checked === false) {
+                        throw new Error("ID 확인이 필요합니다.");
+                    }
+                    return checked;
+                }
+
+                function test2() {
+                    try {
+                        return test();
+                    } catch (e) {
+                        console.error(e.message);
+                    }
+                }
+                function registerUser() {
+                    if (checked) {
+                        document.forms[0].submit();
+                    } else {
+                        alert('아이디 중복 체크를 통과해야 회원가입이 가능합니다.');
+                    }
+                }
             </script>
-
-
         </div>
         <div>
             <label for="password">비밀번호</label>
@@ -141,7 +167,7 @@
         <hr class="my-4">
         <div class="row">
             <div class="col">
-                <button class="w-100 btn btn-dark btn-lg" type="submit" onclick="checked()">회원 가입</button>
+                <button class="w-100 btn btn-dark btn-lg" type="button" onclick="registerUser()">회원 가입</button>
             </div>
             <div class="col">
                 <button class="w-100 btn btn-dark btn-lg"

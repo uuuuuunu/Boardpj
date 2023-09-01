@@ -107,7 +107,7 @@
     <div>
       <label for="cont">내용</label>
       <textarea id="cont" class="form-control" type="text" name="cont" th:field="*{cont}"
-                cols="20" wrap="hard"
+                cols="20" wrap="hard" rows="10"
       th:errorclass="field-error"></textarea>
       <div th:each="msg:${#fields.errors('cont')}">
         <p th:text="${msg}"></p>

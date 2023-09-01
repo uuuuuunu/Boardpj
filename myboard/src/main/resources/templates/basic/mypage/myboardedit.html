@@ -106,8 +106,8 @@
     </div>
     <div>
       <label for="cont">내용</label>
-      <textarea type="text" id="cont" name="cont" class="form-control" rows="5"
-                th:text="${board.cont}" th:field="*{cont}"></textarea>
+      <textarea type="text" id="cont" name="cont" class="form-control" rows="10"
+                th:text="${board.cont}" th:field="*{cont}" ></textarea>
       <div th:each="msg:${#fields.errors('cont')}">
         <p th:text="${msg}"></p>
       </div>
