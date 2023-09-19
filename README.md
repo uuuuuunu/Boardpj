@@ -43,7 +43,6 @@
 
 ### 게시글 확인, 댓글
 1. 게시글 목록에서 게시글 제목 클릭 시 개별 게시물 내용 확인
-![확인1](https://github.com/uuuuuunu/Boardpj/assets/125693102/ff0e371c-1766-42b9-ac37-9b7f3662f6b2)
 ![d](https://github.com/uuuuuunu/Boardpj/assets/125693102/3572a82e-1981-469b-8f00-262e977bacc9)
 2. 글마다 댓글 작성
 ![확인2](https://github.com/uuuuuunu/Boardpj/assets/125693102/b761f46a-2822-420e-92f4-edec6b4848c5)
