@@ -33,12 +33,12 @@
 
 ### 게시글 목록, 작성
 1. 게시글 검색 기능
-![5](https://github.com/uuuuuunu/Boardpj/assets/125693102/1ccbef97-5e42-41d8-8b98-e5410b894112)
+![6](https://github.com/uuuuuunu/Boardpj/assets/125693102/9e591341-5018-4ecd-ab60-b5dabe33437b)
 2. 판매중,예약,판매완료 여부
 3. 작성자(닉네임), 조회수 확인
 4. 왼쪽 상단에 현재 접속중인 회원 닉네임 표시
 5. 게시글 작성: 제목, 금액, 판매상태, 이미지 첨부
-![6](https://github.com/uuuuuunu/Boardpj/assets/125693102/9e591341-5018-4ecd-ab60-b5dabe33437b)
+![5](https://github.com/uuuuuunu/Boardpj/assets/125693102/1ccbef97-5e42-41d8-8b98-e5410b894112)
 ![화면 캡처 2023-09-19 153645](https://github.com/uuuuuunu/Boardpj/assets/125693102/2fd2774f-caab-4fb1-ab4e-672e7a749f52)
 
 ### 게시글 확인, 댓글
